@@ -1,0 +1,6 @@
+# FastMCP for building MCP servers
+fastmcp>=2.10.0
+
+# For environment variable management
+python-dotenv>=1.0.0
+

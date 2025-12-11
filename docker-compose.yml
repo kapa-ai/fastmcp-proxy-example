@@ -1,0 +1,33 @@
+# Federated MCP Server - Development Environment
+#
+# Usage:
+#   docker compose up -d
+#   docker compose exec mcp-server bash
+#   fastmcp run server.py --transport http --host 0.0.0.0 --port 8787
+#
+# Inspector: http://localhost:6274
+# Server: http://localhost:8787/mcp
+
+services:
+  mcp-server:
+    build: .
+    ports:
+      - "8787:8787"
+    env_file: .env
+    volumes:
+      - .:/app
+    command: fastmcp run server.py:create_server --transport http --host 0.0.0.0 --port 8787
+
+  mcp-inspector:
+    image: node:22-slim
+    ports:
+      - "6274:6274"
+      - "6277:6277"
+    environment:
+      - HOST=0.0.0.0
+      - CLIENT_PORT=6274
+      - SERVER_PORT=6277
+      - DANGEROUSLY_OMIT_AUTH=true
+    command: npx --yes @modelcontextprotocol/inspector@latest --transport http --server-url http://host.docker.internal:8787/mcp
+    depends_on:
+      - mcp-server

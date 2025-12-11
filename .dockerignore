@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# Environment
+.env
+*.env
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.venv
+venv
+
+# IDE
+.cursor
+.vscode
+.idea
+*.swp
+
+# Docs
+README.md
+*.md
+
+# Docker
+Dockerfile
+docker-compose.yml
+
