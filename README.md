@@ -53,7 +53,7 @@ docker compose up
 ```
 
 This starts two containers:
-- **MCP Server** (`localhost:8787`) — your server with native + proxied tools
+- **MCP Server** (`localhost:8787`) — Example server with native tools and consumes the proxy
 - **MCP Inspector** (`localhost:6274`) — a web UI for browsing and testing MCP tools
 
 **3. Open the MCP Inspector:**
