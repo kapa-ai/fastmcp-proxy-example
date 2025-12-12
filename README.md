@@ -75,30 +75,36 @@ You'll see both tools listed:
 ```python
 from fastmcp import FastMCP
 
-async def create_server() -> FastMCP:
-    mcp = FastMCP(name="My Product MCP Server")
+mcp = FastMCP(name="My Product MCP Server")
 
-    # Your native tool
-    @mcp.tool
-    def get_status() -> dict:
-        return {"status": "healthy"}
+# Your native tool
+@mcp.tool
+def get_status() -> dict:
+    return {"status": "healthy"}
 
-    # Create proxy to Kapa's MCP server
-    kapa_proxy = FastMCP.as_proxy({
-        "mcpServers": {
-            "kapa": {
-                "url": os.getenv("KAPA_MCP_SERVER_URL"),
-                "transport": "http",
-                "headers": {"Authorization": f"Bearer {os.getenv('KAPA_API_KEY')}"}
-            }
+# Create proxy to Kapa's MCP server
+kapa_proxy = FastMCP.as_proxy({
+    "mcpServers": {
+        "kapa": {
+            "url": os.getenv("KAPA_MCP_SERVER_URL"),
+            "transport": "http",
+            "headers": {"Authorization": f"Bearer {os.getenv('KAPA_API_KEY')}"}
         }
-    })
-    
-    # Import tools from Kapa
-    await mcp.import_server(kapa_proxy)
-    
-    return mcp
+    }
+})
+
+# Mount Kapa's tools
+mcp.mount(kapa_proxy)
 ```
+
+## Why `mount`?
+
+FastMCP offers [two ways to compose servers](https://gofastmcp.com/servers/composition):
+
+- **`mount()`** — Live link; changes to Kapa's tools are reflected immediately
+- **`import_server()`** — Static copy; faster `list_tools()` but requires restart to pick up changes
+
+This example uses `mount()` so updates to your Kapa server are reflected without restarting. If performance is critical for your use case, see the [FastMCP docs](https://gofastmcp.com/servers/composition) for alternatives.
 
 ## Resources
 
