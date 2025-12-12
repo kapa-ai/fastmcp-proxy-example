@@ -24,6 +24,8 @@ In this example, we proxy Kapa's retrieval tool so it appears as a native part o
 
 Your users only need to install one MCP server, but get access to both your native tools and Kapa's retrieval.
 
+> **Note:** This example includes a simple native tool called `get_status` to demonstrate how proxied tools appear alongside your own.
+
 ## Prerequisites
 
 - Docker
@@ -58,11 +60,15 @@ This starts two containers:
 
 The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is a developer tool for testing MCP servers. It lets you browse available tools, call them, and see the results.
 
-Go to http://localhost:6274 — it will auto-connect to the server.
+1. Go to http://localhost:6274
+2. The server URL is prefilled — click **Connect**
+3. Navigate to the **Tools** tab
 
 You'll see both tools listed:
 - `get_status` — your native tool
 - `search_<product>_knowledge_sources` — proxied from Kapa
+
+![MCP Inspector showing both native and proxied tools](assets/inspector.png)
 
 ## How It Works
 
