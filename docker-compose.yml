@@ -16,7 +16,7 @@ services:
     env_file: .env
     volumes:
       - .:/app
-    command: fastmcp run server.py:create_server --transport http --host 0.0.0.0 --port 8787
+    command: fastmcp run server.py:mcp --transport http --host 0.0.0.0 --port 8787
 
   mcp-inspector:
     image: node:22-slim

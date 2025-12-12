@@ -1,5 +1,5 @@
 .PHONY: server
 
 server:
-	fastmcp run server.py:create_server --transport http --host 0.0.0.0 --port 8787
+	fastmcp run server.py:mcp --transport http --host 0.0.0.0 --port 8787
 
